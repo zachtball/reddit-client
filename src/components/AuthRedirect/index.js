@@ -11,9 +11,8 @@ export default () => {
       if (res.status !== 200) {
         return console.log('error authenticating');
       }
-      setTimeout(() => {
-        history.push('/');
-      }, [2000]);
+
+      history.push('/');
     });
   }, []);
 
