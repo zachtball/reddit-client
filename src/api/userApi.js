@@ -1,5 +1,5 @@
-import { http } from './index';
+import http from './index';
 
 export const getMe = () => {
-  return http.get('api/user/me');
+  return http().get('api/user/me');
 };

@@ -6,14 +6,18 @@ export default () => {
   const history = useHistory();
   const codeParam = new URLSearchParams(window.location.href).get('code');
   useEffect(() => {
-    getToken(codeParam).then((res) => {
-      localStorage.setItem('REDDIT_TOKEN', res.data);
-      if (res.status !== 200) {
-        return console.log('error authenticating');
-      }
+    if (codeParam) {
+      getToken(codeParam)
+        .then((res) => {
+          localStorage.setItem('REDDIT_TOKEN', res.data);
 
-      history.push('/');
-    });
+          history.push('/');
+        })
+        .catch((err) => {
+          console.log('error authenticating', err);
+          history.push('/login');
+        });
+    }
   }, []);
 
   return <>THIS IS AUTH REDIRECT</>;
