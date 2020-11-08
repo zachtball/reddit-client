@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { getMe, getToken } from '../../api';
 
-export default ({ setAuthenticated, setLoading }) => {
+export default ({ setAuthenticated, setLoading, authenticated }) => {
   const [token, setToken] = useState(null);
   const history = useHistory();
   const codeParam = new URLSearchParams(window.location.href).get('code');
+  console.log(authenticated);
   useEffect(() => {
+    if (authenticated) {
+      history.push('/');
+    }
     setLoading(true);
     if (codeParam) {
       getToken(codeParam)

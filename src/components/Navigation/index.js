@@ -60,13 +60,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default () => {
+export default ({ setAuthenticated }) => {
   const history = useHistory();
   const [mobileOpen, setMobileOpen] = useState(false);
   const classes = useStyles();
 
   const signOutClick = () => {
     localStorage.removeItem('REDDIT_TOKEN');
+    setAuthenticated(false);
     history.push('/login');
   };
 

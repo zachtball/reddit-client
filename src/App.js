@@ -27,11 +27,12 @@ const App = () => {
             <AuthRedirect
               setAuthenticated={setAuthenticated}
               setLoading={setLoading}
+              authenticated={authenticated}
             />
           </Route>
           {authenticated && !loading && (
             <>
-              <Navigation />
+              <Navigation setAuthenticated={setAuthenticated} />
               <Route exact path='/test'>
                 <Test />
               </Route>
