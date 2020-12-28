@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
   AppBar,
@@ -64,6 +65,7 @@ export default ({ setAuthenticated }) => {
   const history = useHistory();
   const [mobileOpen, setMobileOpen] = useState(false);
   const classes = useStyles();
+  const userName = useSelector(({ user }) => user.name);
 
   const signOutClick = () => {
     localStorage.removeItem('REDDIT_TOKEN');
@@ -79,7 +81,7 @@ export default ({ setAuthenticated }) => {
     <div>
       <div className={classes.toolbar}>
         <ListItemText
-          primary='moneyisjustanumber'
+          primary={userName}
           primaryTypographyProps={{ align: 'center' }}
         />
       </div>

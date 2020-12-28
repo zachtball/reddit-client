@@ -1,14 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { AuthRedirect, Test, Navigation } from './components';
+import { isEmpty } from 'lodash';
+import { setUser } from './reducers/userSlice';
+import { getMe } from './api';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Login } from './views';
 import './styles/main.scss';
 
 const App = () => {
   const [loading, setLoading] = useState(false);
+  const user = useSelector(({ user }) => user);
+  const dispatch = useDispatch();
   const [authenticated, setAuthenticated] = useState(
     Boolean(localStorage.getItem('REDDIT_TOKEN'))
   );
+
+  useEffect(() => {
+    if (authenticated && isEmpty(user)) {
+      getMe().then(({ data }) => {
+        dispatch(setUser(data));
+      });
+    }
+  }, []);
 
   if (
     !authenticated &&

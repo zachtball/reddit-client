@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { getMe, getToken } from '../../api';
+import { setUser } from '../../reducers/userSlice';
 
 export default ({ setAuthenticated, setLoading, authenticated }) => {
+  const dispatch = useDispatch();
   const [token, setToken] = useState(null);
   const history = useHistory();
   const codeParam = new URLSearchParams(window.location.href).get('code');
@@ -31,6 +34,7 @@ export default ({ setAuthenticated, setLoading, authenticated }) => {
       setAuthenticated(true);
       getMe().then(({ data }) => {
         console.log(data);
+        dispatch(setUser(data));
         setLoading(false);
         history.push('/');
       });
