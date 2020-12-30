@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { AuthRedirect, Test, Navigation } from './components';
+import { AuthRedirect, Navigation } from './components';
 import { isEmpty } from 'lodash';
 import { setUser } from './reducers/userSlice';
 import { getMe } from './api';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Login } from './views';
+import { Login, Home } from './views';
 import './styles/main.scss';
 
 const App = () => {
@@ -47,9 +47,11 @@ const App = () => {
           {authenticated && !loading && (
             <>
               <Navigation setAuthenticated={setAuthenticated} />
-              <Route exact path='/test'>
-                <Test />
-              </Route>
+              <div className='app-container'>
+                <Route exact path='/'>
+                  <Home />
+                </Route>
+              </div>
             </>
           )}
         </Switch>

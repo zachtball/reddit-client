@@ -9,7 +9,6 @@ export default ({ setAuthenticated, setLoading, authenticated }) => {
   const [token, setToken] = useState(null);
   const history = useHistory();
   const codeParam = new URLSearchParams(window.location.href).get('code');
-  console.log(authenticated);
   useEffect(() => {
     if (authenticated) {
       history.push('/');
@@ -32,12 +31,14 @@ export default ({ setAuthenticated, setLoading, authenticated }) => {
   useEffect(() => {
     if (token) {
       setAuthenticated(true);
-      getMe().then(({ data }) => {
-        console.log(data);
-        dispatch(setUser(data));
-        setLoading(false);
-        history.push('/');
-      });
+      getMe()
+        .then(({ data }) => {
+          console.log(data);
+          dispatch(setUser(data));
+          setLoading(false);
+          history.push('/');
+        })
+        .catch((err) => console.log(err));
     }
   }, [token]);
 
